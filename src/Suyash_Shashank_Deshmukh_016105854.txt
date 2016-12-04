@@ -1,0 +1,120 @@
+/* Name: Suyash Shashank Deshmukh
+ * CSULB ID: 016105854
+ * Subject : CECS 524 Sec01 2.00PM-3.15PM
+ */
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+public class Lex {
+
+	static FileReader fr = null;
+	
+	public BufferedReader readFile(String Filepath) throws FileNotFoundException      // Function to open input file  
+	{										  // and return BufferedReader object.
+		FileReader fr = new FileReader(Filepath);
+		BufferedReader br = new BufferedReader(fr);
+		return br;
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			Lex lex1 = new Lex();
+			BufferedReader br=lex1.readFile("C:\\abc.txt");
+			String line = br.readLine();
+			while(line!=null)						  // Loop to read input line by line.
+			{
+				String regex = "[(\".*\")=><()+\\-*/%,!\\|\\&\\[\\]\\{\\}\\#]";
+				StringTokenizer st = new StringTokenizer(line,regex,true); 
+				String token1=null;
+				int flag=0;
+				int count=0;
+				while(st.hasMoreTokens())				 // Loop to verify and print seperated tokens.
+				{
+					
+					token1 = st.nextToken();
+					for(int j=1;j<token1.length();j++)
+					{
+						if(Character.isDigit(token1.charAt(j)))
+						{
+							count++;
+							flag=1;					
+						}
+					}
+					if(count==token1.length()-1)			
+						flag=0;
+					if(token1.length()>32 || flag==1)		// Discard identifier if length >32 
+					{						// or contains a digit.
+						flag=0;
+						continue;
+					}
+					i f(token1.charAt(0)==' ')
+						token1=token1.trim();
+					
+					if(token1.equals("\""))
+					{
+						if(st.hasMoreTokens())
+						{
+							System.out.println("\""+st.nextToken()+"\"");
+							st.nextToken();
+						}
+					}
+					else
+						System.out.println(token1);
+				}
+				line=br.readLine();
+			}
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Please Enter Valid Filepath");
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("IOException Caught.");
+			e.printStackTrace();
+		}	
+		
+	}
+
+}
+
+/* -------- INPUT -------------
+PRINT"HELLO"
+circum=(radius+radius)*22/7
+println "Pay for ", hours, " at $", rate, " per hour is $", pay
+*/
+
+/*------- OUTPUT --------------
+PRINT 
+"HELLO"
+circum
+=
+(
+radius
++
+radius
+)
+*
+22
+/
+7
+println 
+"Pay for "
+,
+hours
+,
+
+" at $"
+,
+rate
+,
+
+" per hour is $"
+,
+pay
+*/

@@ -1,0 +1,93 @@
+			//String regex = "[(\".*\")=><()+\\-*/%,!\\|\\&\\[\\]\\{\\}\\# ]";
+				//StringTokenizer st = new StringTokenizer(line,regex,true); 
+				//String token1=null;
+				//int flag=0;
+//				int count=0;
+//				token1 = st.nextToken();
+//				if(token1.equals(" "))
+//				{
+//					//st.nextToken();
+//					continue;
+//				}
+//				for(int j=1;j<token1.length();j++)
+//				{
+//					if(Character.isDigit(token1.charAt(j)))
+//					{
+//						count++;
+//						flag=1;					
+//					}
+//				}
+//				if(count==token1.length()-1)
+//					flag=0;
+//				if(token1.length()>32 || flag==1)
+//				{
+//					flag=0;
+//					continue;
+//				}
+//				if(token1.charAt(0)==' ')
+//					token1=token1.trim();
+//
+//				if(token1.equals("\""))
+//				{
+//					String token2="";
+//					String s=token1;
+//					do
+//					{
+//						//System.out.println("\""+st.nextToken()+"\"");
+//						s=s.concat(token2);
+//						token2=st.nextToken();
+//					}while(!token2.equals("\""));
+//					//System.out.println("TOKEN PRINTINg");
+//					tokens[k]=s.concat("\"");
+//					k++;
+//					//System.out.println(s+"\"");
+//					//st.nextToken();
+//				}
+
+
+
+
+
+
+
+PRINT :
+String s="";
+						for(int a=1;a<tokenlist.length && tokenlist[a]!=null;a++)
+						{
+							if(tokenlist[a].charAt(0)=='"')
+							{
+								System.out.println(tokenlist[a].substring(1, tokenlist[a].length()-1));
+							}
+							else if(tokenlist[a].equals(","))
+							{
+								continue;
+							}
+							else
+							{
+								String s1="";
+								int count=0;
+								while(tokenlist[a+1]!=null && tokenlist[a+1].equals(","))
+								{
+									if(symtable.isNumeric(tokenlist[a]) || tokenlist[a].equals("+") || tokenlist[a].equals("-")
+											|| tokenlist[a].equals("*") || tokenlist[a].equals("/") || tokenlist[a].equals("(")
+											|| tokenlist[a].equals(")"))
+									{	s1.concat(tokenlist[a]);
+										count++;
+									}
+									else
+									{
+										String s2=""+symtable.getValue(tokenlist[a]);
+										s1.concat(s2);
+									}
+								}
+								if(count==0)
+									System.out.println(s1);
+								else
+								{
+									int result= symtable.evaluate(s1);
+									System.out.print(result);
+								}
+							}
+							
+							
+						}
